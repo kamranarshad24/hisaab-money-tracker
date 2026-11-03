@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<title>Hisaab – Money Tracker</title>
+<style>
+:root{--bg:#f4f6f5;--card:#fff;--ink:#16221f;--mute:#667873;--line:#e2e8e6;--pri:#0f766e;--pri2:#0b5c56;--bad:#c2410c;--good:#15803d;--warn:#b45309}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font:15px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:84px}
+header{background:var(--pri);color:#fff;padding:14px 16px;position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center}
+header h1{margin:0;font-size:18px}
+main{max-width:720px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card h2{margin:0 0 8px;font-size:15px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.mute{color:var(--mute);font-size:13px}
+.bad{color:var(--bad)}.good{color:var(--good)}.warn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.q{padding:14px 6px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:600;color:var(--pri2)}
+.q:active{background:#e6f4f2}
+button,select,input,textarea{font:inherit}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:10px 14px;font-weight:600}
+.btn.sec{background:#e6f4f2;color:var(--pri2)}
+.btn.danger{background:#fee2e2;color:#991b1b}
+.btn.sm{padding:6px 10px;font-size:13px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:6}
+nav button{flex:1;border:0;background:none;padding:10px 0 8px;font-size:12px;color:var(--mute)}
+nav button.on{color:var(--pri);font-weight:700}
+nav button b{display:block;font-size:20px;font-weight:400}
+.fab{position:fixed;right:16px;bottom:78px;width:56px;height:56px;border-radius:50%;background:var(--pri);color:#fff;font-size:30px;border:0;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:7}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.sheet>div{background:#fff;width:100%;max-width:720px;border-radius:18px 18px 0 0;padding:16px;max-height:92vh;overflow:auto}
+label{display:block;font-size:12px;color:var(--mute);margin:10px 0 3px}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+input[type=checkbox]{width:auto}
+.amt{font-size:28px;font-weight:700;text-align:center}
+.bar{height:10px;border-radius:6px;background:var(--pri);margin-top:3px}
+.bar.un{background:repeating-linear-gradient(45deg,#c2410c,#c2410c 6px,#fb923c 6px,#fb923c 12px)}
+.pill{display:inline-block;padding:2px 8px;border-radius:99px;background:#fff7ed;color:var(--warn);font-size:12px;margin:2px 4px 2px 0;border:1px solid #fed7aa}
+.pill.btnlike{cursor:pointer}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{padding:4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+td input,td select{padding:4px;font-size:12px}
+tr.chk{background:#fffbeb}
+.tabs{display:none}.tabs.on{display:block}
+.big{font-size:22px;font-weight:700}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stats div{background:#f4f9f8;border-radius:10px;padding:10px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:#16221f;color:#fff;padding:8px 14px;border-radius:20px;z-index:30;font-size:13px;display:none}
+</style>
+</head>
+<body>
+<header><h1>Hisaab</h1><span id="hdrSync" class="mute" style="color:#cfeee9"></span></header>
+<main>
+  <section id="t-today" class="tabs on"></section>
+  <section id="t-reports" class="tabs"></section>
+  <section id="t-accounts" class="tabs"></section>
+  <section id="t-settings" class="tabs"></section>
+</main>
+<button class="fab" id="fab" aria-label="Add entry">+</button>
+<nav id="nav">
+  <button data-t="today" class="on"><b>🏠</b>Today</button>
+  <button data-t="reports"><b>📊</b>Reports</button>
+  <button data-t="accounts"><b>🏦</b>Accounts</button>
+  <button data-t="settings"><b>⚙️</b>Settings</button>
+</nav>
+<div class="sheet" id="sheet"><div id="sheetBody"></div></div>
+<div class="toast" id="toast"></div>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
